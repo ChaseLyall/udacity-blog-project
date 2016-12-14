@@ -1,0 +1,71 @@
+body {
+    font-family: "Lato", sans-serif;
+    margin: auto;
+    max-width: 1200px;
+
+    position: relative;
+    font-size: 14px;
+}
+
+h2 {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+main {
+    margin-right: 20px;
+    margin-left: 20px;
+}
+
+img {
+    width: 100%;
+}
+
+.brand-image {
+    height: 30px;
+    width: 30px;
+}
+
+.navbar-nav li a {
+    line-height: 30px;
+}
+
+.login-area {
+    font-size: 13px;
+    color: gray;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+.login-link {
+    color: gray;
+    text-decoration: none;
+}
+
+.login-link:visited {
+    color: gray;
+}
+
+.login-link:hover {
+    text-decoration: underline;
+}
+
+.error {
+    color: red;
+}
+
+.fa {
+    color: #02b3e4;
+}
+
+.header-title {
+    color: #2d3c49;
+}
+
+.home-footer {
+    padding-bottom: 30px;
+    color: #767676;
+    text-align: center;
+}

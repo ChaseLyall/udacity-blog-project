@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block title %}Chase's Blog{% endblock title %}
+{% block css %}<link rel="stylesheet" href="/static/css/blog.css">{% endblock css %}
+{% block navbar %}
+<ul class="nav navbar-nav navbar-right">
+    {% if user %}
+    <li><a href="/blog/newpost"><i class="fa fa-plus" aria-hidden="true"></i> New Post</a></li>
+    <li>
+        <p class="navbar-text">{{user.name}} (<a href="/logout">logout</a>)</p>
+    </li>
+    {% else %}
+    <li><p class="navbar-text"><a href="/login">login</a> | <a href="/signup">signup</a></p>
+    </li>
+    {% endif %}
+</ul>
+{% endblock navbar %}

@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block title %}Login{% endblock title %}
+{% block css %}
+<style>input[type=submit] {
+  margin-top: 20px;
+}
+</style>
+{% endblock css %}
+{% block navbar %}
+<ul class="nav navbar-nav navbar-right">
+    <li><p class="navbar-text"><a href="/login">login</a> | <a href="/signup">signup</a></p>
+    </li>
+</ul>
+{% endblock navbar %}
+{% block content %}
+    <h2>Login</h2>
+    <form method="post">
+        <table>
+            <tr>
+                <td class="text-right">Username</td>
+                <td>
+                    <input type="text" name="username" value="{{username}}">
+                </td>
+            </tr>
+
+            <tr>
+                <td class="text-right">Password</td>
+                <td>
+                    <input type="password" name="password" value="">
+                </td>
+            </tr>
+        </table>
+
+        <div class="error">
+            {{error}}
+        </div>
+
+        <input type="submit">
+    </form>
+{% endblock content %}

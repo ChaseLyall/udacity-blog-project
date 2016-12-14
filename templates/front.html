@@ -1,0 +1,59 @@
+{% extends "base.html" %} {% block content %}
+<main>
+    <div class="row">
+        <div class="col-md-12">
+            <picture>
+                <!--If you're only changing image's resolution, it's best to use srcset rather than picture. <picture> is a better use case when you need different alternate images to load on different screen sizes.-->
+                <!--[if IE 9]><video style="display: none;"><![endif]-->
+                <source media="(min-width: 750px)" srcset="static/img/Bridge-1024_large_2x.jpg 2x, static/img/Bridge-1024_large_1x.jpg" />
+                <source media="(min-width: 500px)" srcset="static/img/Bridge-640_medium.jpg" />
+                <!--[if IE 9]></video><![endif]-->
+                <img src="static/img/Bridge-320_small.jpg" class="img-responsive center-block" alt="Golden Gate Bridge in San Francisco, with a fully loaded container ship underneath it coming into the bay.">
+            </picture>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <h2>Featured Work</h2>
+        </div>
+    </div>
+    <div class="row">
+        <article class="col-md-4">
+            <picture>
+                <source media="(min-width: 750px)" srcset="static/img/Tulips-1024_large_2x.jpg 2x, static/img/Tulips-1024_large_1x.jpg" />
+                <source media="(min-width: 500px)" srcset="static/img/Tulips-640_medium.jpg" />
+                <img src="static/img/Tulips-320_small.jpg" class="img-responsive center-block" alt="Field of orange tulips blossoming.">
+            </picture>
+            <h3 class="project-title text-uppercase text-center">Appify</h3>
+            <p class="text-center"><a href="https://github.com/udacity/Appify/">https://github.com/udacity/Appify/</a>
+            </p>
+            <p class="text-justify">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute
+                irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+        </article>
+        <article class="col-md-4">
+            <picture>
+                <source media="(min-width: 750px)" srcset="static/img/Basilica-1024_large_2x.jpg 2x, static/img/Basilica-1024_large_1x.jpg" />
+                <source media="(min-width: 500px)" srcset="static/img/Basilica-640_medium.jpg" />
+                <img src="static/img/Basilica-320_small.jpg" class="img-responsive center-block" alt="Looking up at the ceiling of the La Sagrada Familia Basilica in Barcelona, Spain.">
+            </picture>
+            <h3 class="project-title text-uppercase text-center">Sunflower</h3>
+            <p class="text-center"><a href="https://github.com/udacity/Sunflower/">https://github.com/udacity/Sunflower/</a>
+            </p>
+            <p class="text-justify">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute
+                irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+        </article>
+        <article class="col-md-4">
+            <picture>
+                <source media="(min-width: 750px)" srcset="static/img/Backpacking-1024_large_2x.jpg 2x, static/img/Backpacking-1024_large_1x.jpg" />
+                <source media="(min-width: 500px)" srcset="static/img/Backpacking-640_medium.jpg" />
+                <img src="static/img/Backpacking-320_small.jpg" class="img-responsive center-block" alt="Two couples hiking in Northern California.">
+            </picture>
+            <h3 class="project-title text-uppercase text-center">Bokeh</h3>
+            <p class="text-center"><a href="https://github.com/udacity/Bokeh/">https://github.com/udacity/Bokeh/</a>
+            </p>
+            <p class="text-justify">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute
+                irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+        </article>
+    </div>
+</main>
+{% endblock %}

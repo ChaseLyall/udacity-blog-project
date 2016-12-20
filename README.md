@@ -16,7 +16,7 @@ To start this project in production run:
 
 
 ## Usage
-The purpose of this project is to illustrate how to build a simple blog in Google's App Engine using Python, Jinja2, and Google Datastore.
+The purpose of this project is to illustrate how to build a simple blog in Google's App Engine using Python, Jinja2, and the Google Datastore.
 
 
 ## Known Bugs
@@ -24,7 +24,8 @@ No known bugs at this time.
 
 
 ## Contributing
-Chase Lyall, based on Steve Huffman's teachings from Udacity's [Intro to Backend](https://www.udacity.com/course/intro-to-backend--ud171) course.
+- Chase Lyall
+- based on Steve Huffman's teachings from Udacity's [Intro to Backend](https://www.udacity.com/course/intro-to-backend--ud171) course
 
 
 ## License

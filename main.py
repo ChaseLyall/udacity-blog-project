@@ -1,9 +1,16 @@
+'''Main.py
+
+Entry for Google App Engine.
+Starts the WSGI Application.
+Assigns URLs their Python handlers.
+
+'''
+
 import webapp2
 
-from handler import *
+from handler import MainPage, About, Signup, Login, Logout, NotFoundPageHandler
 from blog import blog_controller
 
-'''URLs'''
 app = webapp2.WSGIApplication([('/', MainPage),
                                ('/about', About),
                                ('/signup', Signup),

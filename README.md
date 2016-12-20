@@ -12,7 +12,7 @@ To start this project in a test environment run:
 `dev_appserver.py .`
 
 To start this project in production run:
-`gcloud app deploy app.yaml index.yaml --project \<project_name\>`
+`gcloud app deploy app.yaml index.yaml --project <project_name>`
 
 
 ## Usage

@@ -16,7 +16,7 @@ To start this project in production run:
 
 
 ## Usage
-The purpose of this project is to illustrate how to build a simple blog in Google's App Engine using
+The purpose of this project is to illustrate how to build a simple blog in Google's App Engine using Python, Jinja2, and Google Datastore.
 
 
 ## Known Bugs

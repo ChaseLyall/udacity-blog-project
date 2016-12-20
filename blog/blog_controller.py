@@ -64,15 +64,17 @@ class NewPost(BlogHandler):
     """Web hanlder for creating a new blog post"""
     def get(self):
         """Get a web page to create a new blog post"""
-        if self.user:
-            self.render("blog-newpost.html")
-        else:
-            self.redirect("/login")
+        if not self.user:
+            self.redirect('/login')
+            return
+
+        self.render("blog-newpost.html")
 
     def post(self):
         """Post (i.e. publish) a new blog post"""
         if not self.user:
-            self.redirect('/blog')
+            self.redirect('/login')
+            return
 
         subject = self.request.get('subject')
         content = self.request.get('content')
@@ -90,22 +92,10 @@ class EditPost(BlogHandler):
     """Web handler for editing an existing blog post"""
     def get(self, post_id):
         """Get a web page for editing an existing blog post"""
-        key = db.Key.from_path('Post', int(post_id), parent=blog_key())
-        post = db.get(key)
-
-        if not post:
-            self.render("404.html")
+        if not self.user:
+            self.redirect('/login')
             return
 
-        if self.user and self.user.name == post.author:
-            self.render("blog-editpost.html", subject=post.subject, content=post.content, post=post)
-        elif self.user and self.user.name != post.author:
-            self.redirect("/blog/%s" % str(post_id))
-        else:
-            self.redirect("/login")
-
-    def post(self, post_id):
-        """Post (i.e. publish) a new edit to an existing blog post"""
         key = db.Key.from_path('Post', int(post_id), parent=blog_key())
         post = db.get(key)
 
@@ -115,6 +105,26 @@ class EditPost(BlogHandler):
 
         if not self.user.name == post.author:
             self.redirect("/blog/%s" % str(post_id))
+            return
+
+        self.render("blog-editpost.html", subject=post.subject, content=post.content, post=post)
+
+    def post(self, post_id):
+        """Post (i.e. publish) a new edit to an existing blog post"""
+        if not self.user:
+            self.redirect('/login')
+            return
+
+        key = db.Key.from_path('Post', int(post_id), parent=blog_key())
+        post = db.get(key)
+
+        if not post:
+            self.render("404.html")
+            return
+
+        if not self.user.name == post.author:
+            self.redirect("/blog/%s" % str(post_id))
+            return
 
         subject = self.request.get('subject')
         content = self.request.get('content')
@@ -133,22 +143,10 @@ class DeletePost(BlogHandler):
     """Web handler for deleting an existing blog post"""
     def get(self, post_id):
         """Get the webpage in order to delete the blog post"""
-        key = db.Key.from_path('Post', int(post_id), parent=blog_key())
-        post = db.get(key)
-
-        if not post:
-            self.render("404.html")
+        if not self.user:
+            self.redirect('/login')
             return
 
-        if self.user and self.user.name == post.author:
-            self.render("blog-deletepost.html", subject=post.subject)
-        elif self.user and self.user.name != post.author:
-            self.redirect("/blog/%s" % str(post_id))
-        else:
-            self.redirect("/login")
-
-    def post(self, post_id):
-        """Post (i.e. publish) your delete of the blog post"""
         key = db.Key.from_path('Post', int(post_id), parent=blog_key())
         post = db.get(key)
 
@@ -158,6 +156,25 @@ class DeletePost(BlogHandler):
 
         if not self.user.name == post.author:
             self.redirect("/blog/%s" % str(post_id))
+
+        self.render("blog-deletepost.html", subject=post.subject)
+
+    def post(self, post_id):
+        """Post (i.e. publish) your delete of the blog post"""
+        if not self.user:
+            self.redirect('/login')
+            return
+
+        key = db.Key.from_path('Post', int(post_id), parent=blog_key())
+        post = db.get(key)
+
+        if not post:
+            self.render("404.html")
+            return
+
+        if not self.user.name == post.author:
+            self.redirect("/blog/%s" % str(post_id))
+            return
 
         comments = Comment.all().filter(' post_id =', post_id)
         likes = Liked.all().filter(' post_id =', post_id)
@@ -219,6 +236,10 @@ class NewComment(BlogHandler):
     """Web hanlder for creating a new comment on an existing blog post"""
     def get(self, post_id):
         """Get a webpage for writing a comment under a blog post"""
+        if not self.user:
+            self.redirect('/login')
+            return
+
         post_key = db.Key.from_path('Post', int(post_id), parent=blog_key())
         post = db.get(post_key)
 
@@ -226,15 +247,13 @@ class NewComment(BlogHandler):
             self.render("404.html")
             return
 
-        if self.user:
-            self.render("blog-newcomment.html", post=post)
-        else:
-            self.redirect("/login")
+        self.render("blog-newcomment.html", post=post)
 
     def post(self, post_id):
         """Post (i.e. publish) a new comment"""
         if not self.user:
             self.redirect('/login')
+            return
 
         post_key = db.Key.from_path('Post', int(post_id), parent=blog_key())
         post = db.get(post_key)
@@ -259,6 +278,10 @@ class EditComment(BlogHandler):
     """Web handler for editing an existing comment"""
     def get(self, comment_id):
         """Get a web page for editing an existing comment"""
+        if not self.user:
+            self.redirect('/login')
+            return
+
         key = db.Key.from_path('Comment', int(comment_id), parent=blog_key())
         comment = db.get(key)
 
@@ -266,25 +289,32 @@ class EditComment(BlogHandler):
             self.render("404.html")
             return
 
+        if not self.user.name == comment.author:
+            self.redirect("/blog/%s" % str(comment.post_id))
+            return
+
         post_key = db.Key.from_path('Post', int(comment.post_id),
                                     parent=blog_key())
         post = db.get(post_key)
 
-        if self.user and self.user.name == comment.author:
-            self.render("blog-editcomment.html", content=comment.content,
+        self.render("blog-editcomment.html", content=comment.content,
                         post=post)
-        elif self.user and self.user.name != comment.author:
-            self.redirect("/blog/%s" % str(comment.post_id))
-        else:
-            self.redirect("/login")
 
     def post(self, comment_id):
         """Post (i.e. publish) an edit to an existing comment"""
+        if not self.user:
+            self.redirect('/login')
+            return
+
         key = db.Key.from_path('Comment', int(comment_id), parent=blog_key())
         comment = db.get(key)
 
         if not comment:
             self.render("404.html")
+            return
+
+        if not self.user.name == comment.author:
+            self.redirect("/blog/%s" % str(comment.post_id))
             return
 
         post_key = db.Key.from_path('Post', int(comment.post_id),
@@ -306,40 +336,48 @@ class DeleteComment(BlogHandler):
     """Web hanlder for deleting an existing blog post comment"""
     def get(self, comment_id):
         """Get a webpage for deleting an existing blog post comment"""
+        if not self.user:
+            self.redirect('/login')
+            return
+
         key = db.Key.from_path('Comment', int(comment_id), parent=blog_key())
         comment = db.get(key)
 
         if not comment:
             self.render("404.html")
             return
-
-        post_key = db.Key.from_path('Post', int(comment.post_id),
-                                    parent=blog_key())
-        post = db.get(post_key)
-
-        if self.user and self.user.name == comment.author:
-            self.render("blog-deletecomment.html", content=comment.content,
-                        post=post)
-        elif self.user and self.user.name != commment.author:
-            self.redirect("/blog/%s" % str(comment.post_id))
-        else:
-            self.redirect("/login")
-
-    def post(self, comment_id):
-        """Post (i.e. publish) the deletion of an existng blog post comment"""
-        key = db.Key.from_path('Comment', int(comment_id), parent=blog_key())
-        comment = db.get(key)
-
-        if not comment:
-            self.render("404.html")
-            return
-
-        post_key = db.Key.from_path('Post', int(comment.post_id),
-                                    parent=blog_key())
-        post = db.get(post_key)
 
         if not self.user.name == comment.author:
             self.redirect("/blog/%s" % str(comment.post_id))
+            return
+
+        post_key = db.Key.from_path('Post', int(comment.post_id),
+                                    parent=blog_key())
+        post = db.get(post_key)
+
+        self.render("blog-deletecomment.html", content=comment.content,
+                        post=post)
+
+    def post(self, comment_id):
+        """Post (i.e. publish) the deletion of an existng blog post comment"""
+        if not self.user:
+            self.redirect('/login')
+            return
+
+        key = db.Key.from_path('Comment', int(comment_id), parent=blog_key())
+        comment = db.get(key)
+
+        if not comment:
+            self.render("404.html")
+            return
+
+        if not self.user.name == comment.author:
+            self.redirect("/blog/%s" % str(comment.post_id))
+            return
+
+        post_key = db.Key.from_path('Post', int(comment.post_id),
+                                    parent=blog_key())
+        post = db.get(post_key)
 
         content = self.request.get('content')
 

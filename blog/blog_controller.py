@@ -156,6 +156,7 @@ class DeletePost(BlogHandler):
 
         if not self.user.name == post.author:
             self.redirect("/blog/%s" % str(post_id))
+            return
 
         self.render("blog-deletepost.html", subject=post.subject)
 

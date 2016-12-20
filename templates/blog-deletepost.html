@@ -1,0 +1,20 @@
+{% extends "blog-base.html" %}
+{% block content %}
+
+<h2>Delete Post</h2>
+<h3>Subject: {{subject}}</h3>
+
+<form method="post">
+    <p>To delete this post please write this post's subject below and click submit. Copy:</p>
+    <div class="delete-text">
+        {{subject}}
+    </div>
+    <label>
+        <input type="text" name="subject">
+    </label>
+
+    <div class="error">{{error}}</div>
+
+    <input type="submit">
+</form>
+{% endblock %}

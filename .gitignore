@@ -1,3 +1,6 @@
+# Git default ignore
+# Source: https://github.com/github/gitignore
+
 # Dependency directories
 node_modules
 

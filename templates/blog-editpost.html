@@ -1,7 +1,7 @@
 {% extends "blog-base.html" %}
 {% block content %}
 
-<h2>New Post</h2>
+<h2>Edit Post</h2>
 
 <form method="post">
     <label>
@@ -18,4 +18,5 @@
 
     <input type="submit">
 </form>
+<a href="/blog/{{post.key().id()}}">Cancel</a>
 {% endblock %}

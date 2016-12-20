@@ -1,0 +1,19 @@
+{% extends "blog-base.html" %}
+{% block content %}
+
+<h2>Delete Comment</h2>
+
+<form method="post">
+    <p>To delete this comment please write this comment's content below and click submit. Copy:</p>
+    <div class="delete-text">{{content}}</div>
+    <label>
+        <div>Comment Content</div>
+        <textarea name="content"></textarea>
+    </label>
+
+    <div class="error">{{error}}</div>
+
+    <input type="submit">
+</form>
+<a href="/blog/{{post.key().id()}}">Cancel</a>
+{% endblock %}

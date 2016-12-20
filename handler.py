@@ -49,6 +49,11 @@ class Handler(webapp2.RequestHandler):
         else:
             self.user = None
 
+class NotFoundPageHandler(Handler):
+    def get(self):
+        self.error(404)
+        self.render("404.html")
+
 '''USER: Model'''
 def user_key(group = 'default'):
     return db.Key.from_path('users', group)
@@ -182,7 +187,3 @@ class MainPage(Handler):
 class About(Handler):
     def get(self):
         self.render("about.html")
-
-class Test(Handler):
-    def get(self):
-        self.render("test.html")

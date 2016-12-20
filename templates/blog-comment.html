@@ -1,0 +1,16 @@
+<div class="comment">
+    <div class="comment-header">
+        Comment by {{c.author}} on {{c.created.strftime("%b %d, %Y")}}
+    </div>
+    <div class="comment-content">
+        {{c._render_text | safe}}
+    </div>
+    <div class="comment-footer">
+    *last modified: {{c.last_modified.strftime("%b %d, %Y")}}
+    {% if user.name == c.author %}
+        <div class="author">
+            <a href="/blog/edit-comment/{{c.key().id()}}">Edit</a> | <a href="/blog/delete-comment/{{c.key().id()}}">Delete</a>
+        </div>
+    {% endif %}
+    </div>
+</div>

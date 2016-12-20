@@ -1,1 +1,9 @@
-{% extends "blog-base.html" %} {% block content %} {{post.render() | safe}} {% endblock %}
+{% extends "blog-base.html" %}
+{% block content %}
+
+{{ post.render(user) | safe }}
+
+{% for comment in comments %}
+{{ comment.render(user) | safe }}
+{% endfor %}
+{% endblock %}

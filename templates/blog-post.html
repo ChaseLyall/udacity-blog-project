@@ -1,9 +1,8 @@
 <div class="post">
-    <div class="post-heading">
+    <div class="post-header">
         <div class="post-title">
             <a href="/blog/{{p.key().id()}}">{{p.subject}}</a>
         </div>
-
         <div class="post-date">
             by {{p.author}} on
             {{p.created.strftime("%b %d, %Y")}}
@@ -12,5 +11,26 @@
 
     <div class="post-content">
         {{p._render_text | safe}}
+    </div>
+    <div class="post-footer">
+        {% if p.like_cnt == 1%}
+            {{p.like_cnt}} Like,
+        {% else %}
+            {{p.like_cnt}} Likes,
+        {% endif %}
+        last modified: {{p.last_modified.strftime("%b %d, %Y")}}
+        {% if user and user.name == p.author %}
+            <div class="author">
+                <a href="/blog/edit-post/{{p.key().id()}}">Edit</a> | <a href="/blog/delete-post/{{p.key().id()}}">Delete</a>
+            </div>
+        {% endif %}
+        <div class="actions">
+        {% if p.author != user.name and p.liked %}
+            <a href="/blog/unlike/{{p.key().id()}}">Unlike</a> |
+        {% elif p.author != user.name and not p.liked %}
+            <a href="/blog/like/{{p.key().id()}}">Like</a> |
+        {% endif %}
+        <a href="/blog/add-comment/{{p.key().id()}}">Add Comment</a>
+        </div>
     </div>
 </div>
